@@ -48,6 +48,14 @@ public class Servidor {
         Produto produto = null;
         String resultado = "";
         try {
+            // Limpeza e validação do ID do produto
+            idProduto = idProduto.trim();
+            if (!idProduto.matches("\\d+")) {
+                System.err.println("ID do produto inválido: " + idProduto);
+                resultado = "ID do produto inválido.";
+                return resultado; // Retorna imediatamente se o ID não for válido
+            }
+
             produto = em.find(Produto.class, Integer.parseInt(idProduto));
             if (produto != null) {
                 resultado = produto.toString();
@@ -68,4 +76,5 @@ public class Servidor {
         }
         return resultado;
     }
+
 }
